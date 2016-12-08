@@ -2,7 +2,7 @@ package de.is24.deadcode4j.analyzer;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
-import com.github.javaparser.TokenMgrError;
+import com.github.javaparser.TokenMgrException;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Node;
@@ -581,12 +581,12 @@ public abstract class JavaFileAnalyzer extends AnalyzerAdapter {
         }
         private Optional<CompilationUnit> handleThrowable(File file, Throwable t) {
             String message = "Failed to parse [" + file + "]!";
-            if ((TokenMgrError.class.isInstance(t) || ParseException.class.isInstance(t))
+            if ((TokenMgrException.class.isInstance(t) || ParseException.class.isInstance(t))
                     && ignoreParsingErrors) {
                 logger.debug(message, t);
                 return absent();
             }
-            if (Error.class.isInstance(t) && !TokenMgrError.class.isInstance(t)) {
+            if (Error.class.isInstance(t) && !TokenMgrException.class.isInstance(t)) {
                 throw Error.class.cast(t);
             }
             throw new RuntimeException(message, t);

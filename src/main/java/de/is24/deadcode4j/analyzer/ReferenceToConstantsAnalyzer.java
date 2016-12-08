@@ -477,7 +477,7 @@ public class ReferenceToConstantsAnalyzer extends JavaFileAnalyzer {
 
         @Override
         public void visit(CatchClause n, A arg) {
-            MultiTypeParameter multiTypeParameter = n.getExcept();
+            Parameter multiTypeParameter = n.getParam();
             HashSet<String> blockVariables = newHashSet();
             this.localVariables.addLast(blockVariables);
             try {

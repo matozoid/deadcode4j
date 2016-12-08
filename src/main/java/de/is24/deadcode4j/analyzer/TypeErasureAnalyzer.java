@@ -150,16 +150,6 @@ public class TypeErasureAnalyzer extends JavaFileAnalyzer {
             }
         }
 
-        @Override
-        public void visit(MethodReferenceExpr n, A arg) {
-            this.definedTypeParameters.addLast(getTypeParameterNames(n.getTypeParameters()));
-            try {
-                super.visit(n, arg);
-            } finally {
-                this.definedTypeParameters.removeLast();
-            }
-        }
-
         protected boolean typeParameterWithSameNameIsDefined(@Nonnull ClassOrInterfaceType nestedClassOrInterface) {
             if (nestedClassOrInterface.getScope() != null) {
                 return false;
